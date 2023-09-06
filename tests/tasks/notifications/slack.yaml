@@ -17,6 +17,7 @@ spec:
   - name: send-notification
     image: alpine/k8s:1.23.7
     script: |
+      aws sts get-caller-identity
       if [ -n "$(params.slack-hook)" ]; then
         curl -H "Content-type: application/json" --data '{"Message": "$(params.slack-message)"}' -X POST  $(params.slack-hook)
       fi
